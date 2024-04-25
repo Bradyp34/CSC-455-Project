@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace CSC_455_Project
 {
-    public partial class EditWorkout : Form
+    public partial class NewExercise : Form
     {
-        public EditWorkout()
+        public NewExercise()
         {
             InitializeComponent();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

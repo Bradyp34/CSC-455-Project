@@ -30,7 +30,12 @@ namespace CSC_455_Project {
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void editWorkout(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteWorkout(object sender, EventArgs e)
         {
             // Make sure item is selected
             if (listBox1.SelectedItem != null)

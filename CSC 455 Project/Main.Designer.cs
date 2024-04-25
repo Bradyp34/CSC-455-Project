@@ -80,7 +80,7 @@
             button2.TabIndex = 5;
             button2.Text = "Delete";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            button2.Click += this.deleteWorkout;
             // 
             // button3
             // 
@@ -90,6 +90,7 @@
             button3.TabIndex = 6;
             button3.Text = "Edit";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += editWorkout;
             // 
             // dateTimePicker1
             // 
