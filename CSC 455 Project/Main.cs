@@ -1,9 +1,9 @@
 using System.Security.Cryptography.X509Certificates;
 
 namespace CSC_455_Project {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
-        public Form1()
+        public Main()
         {
             InitializeComponent();
         }
@@ -33,10 +33,16 @@ namespace CSC_455_Project {
         private void button2_Click(object sender, EventArgs e)
         {
             // Make sure item is selected
-            if(listBox1.SelectedItem != null)
+            if (listBox1.SelectedItem != null)
             {
                 listBox1.Items.Remove(listBox1.SelectedItem);
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var box = new DateWorkouts(dateTimePicker1.Text);
+            box.Show();
         }
     }
 }
