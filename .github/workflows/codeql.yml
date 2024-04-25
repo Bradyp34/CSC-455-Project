@@ -58,8 +58,7 @@ jobs:
         build-mode: ${{ matrix.build-mode }}
     
     - if: matrix.build-mode == 'manual'
-      run: |
-        # Add commands here to manually build your C# project
+      run:
         dotnet restore MySolution.sln
         dotnet build MySolution.sln --configuration Release
     
