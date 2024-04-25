@@ -49,7 +49,7 @@ namespace CSC_455_Project {
                 if (workout != null)
                 {
                     var box = new EditWorkout(workout);
-                    box.Show();
+                    box.ShowDialog();
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace CSC_455_Project {
         private void button3_Click(object sender, EventArgs e)
         {
             var box = new DateWorkouts(dateTimePicker1.Text);
-            box.Show();
+            box.ShowDialog();
         }
     }
 }

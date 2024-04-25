@@ -1,4 +1,6 @@
-﻿namespace CSC_455_Project
+﻿using System.Windows.Forms;
+
+namespace CSC_455_Project
 {
     partial class EditWorkout
     {
@@ -15,6 +17,12 @@
             InitializeComponent();
             this.workoutName = workout.name;
             workoutLabel.Text = workoutName;
+
+            // Put Excersises in list
+            foreach(var item in workout.exercises)
+            {
+                listBox1.Items.Add(item.name);
+            }
         }
 
 
@@ -42,17 +50,17 @@
             workoutLabel = new Label();
             listBox1 = new ListBox();
             label1 = new Label();
-            checkedListBox1 = new CheckedListBox();
             button1 = new Button();
-            textBox1 = new TextBox();
+            button2 = new Button();
+            NameInput = new TextBox();
             label2 = new Label();
-            label3 = new Label();
+            DeleteButton = new Button();
             SuspendLayout();
             // 
             // workoutLabel
             // 
             workoutLabel.AutoSize = true;
-            workoutLabel.Location = new Point(374, 9);
+            workoutLabel.Location = new Point(233, -1);
             workoutLabel.Name = "workoutLabel";
             workoutLabel.Size = new Size(38, 15);
             workoutLabel.TabIndex = 0;
@@ -76,58 +84,60 @@
             label1.TabIndex = 2;
             label1.Text = "Exercises";
             // 
-            // checkedListBox1
-            // 
-            checkedListBox1.FormattingEnabled = true;
-            checkedListBox1.Location = new Point(613, 75);
-            checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(116, 220);
-            checkedListBox1.TabIndex = 3;
-            // 
             // button1
             // 
-            button1.Location = new Point(672, 330);
+            button1.Location = new Point(174, 384);
             button1.Name = "button1";
             button1.Size = new Size(106, 23);
             button1.TabIndex = 4;
             button1.Text = "Create Exercise";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
-            // textBox1
+            // button2
             // 
-            textBox1.Location = new Point(538, 330);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(128, 23);
-            textBox1.TabIndex = 5;
+            button2.Location = new Point(26, 330);
+            button2.Name = "button2";
+            button2.Size = new Size(100, 23);
+            button2.TabIndex = 5;
+            button2.Text = "Edit Exercise";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // NameInput
+            // 
+            NameInput.Location = new Point(26, 384);
+            NameInput.Name = "NameInput";
+            NameInput.Size = new Size(127, 23);
+            NameInput.TabIndex = 6;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(613, 51);
+            label2.Location = new Point(26, 366);
             label2.Name = "label2";
-            label2.Size = new Size(86, 15);
-            label2.TabIndex = 6;
-            label2.Text = "Muscle Groups";
+            label2.Size = new Size(84, 15);
+            label2.TabIndex = 7;
+            label2.Text = "Exercise Name";
             // 
-            // label3
+            // DeleteButton
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(538, 312);
-            label3.Name = "label3";
-            label3.Size = new Size(84, 15);
-            label3.TabIndex = 7;
-            label3.Text = "Exercise Name";
+            DeleteButton.Location = new Point(205, 330);
+            DeleteButton.Name = "DeleteButton";
+            DeleteButton.Size = new Size(75, 23);
+            DeleteButton.TabIndex = 8;
+            DeleteButton.Text = "Delete";
+            DeleteButton.UseVisualStyleBackColor = true;
             // 
             // EditWorkout
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(label3);
+            ClientSize = new Size(345, 432);
+            Controls.Add(DeleteButton);
             Controls.Add(label2);
-            Controls.Add(textBox1);
+            Controls.Add(NameInput);
+            Controls.Add(button2);
             Controls.Add(button1);
-            Controls.Add(checkedListBox1);
             Controls.Add(label1);
             Controls.Add(listBox1);
             Controls.Add(workoutLabel);
@@ -142,10 +152,10 @@
         private Label workoutLabel;
         private ListBox listBox1;
         private Label label1;
-        private CheckedListBox checkedListBox1;
         private Button button1;
-        private TextBox textBox1;
+        private Button button2;
+        private TextBox NameInput;
         private Label label2;
-        private Label label3;
+        private Button DeleteButton;
     }
 }
