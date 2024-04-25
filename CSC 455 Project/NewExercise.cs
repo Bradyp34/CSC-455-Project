@@ -26,6 +26,13 @@ namespace CSC_455_Project
                 exercise.sets = sets;
                 exercise.reps = reps;
             }
+            foreach (var item in checkedListBox1.SelectedItems) 
+            {
+                Enum.TryParse<Muscles>(item.ToString(),out Muscles muscle);
+                exercise.musclesHit.Add(muscle);
+            }
+
+            Close();
         }
 
     }

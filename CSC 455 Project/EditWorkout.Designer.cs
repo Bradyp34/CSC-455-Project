@@ -26,6 +26,16 @@ namespace CSC_455_Project
         }
 
 
+        private void RefreshList()
+        {
+            listBox1.Items.Clear();
+
+            foreach (var item in workout.exercises)
+            {
+                listBox1.Items.Add(item.name);
+            }
+        }
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -52,9 +62,9 @@ namespace CSC_455_Project
             label1 = new Label();
             button1 = new Button();
             button2 = new Button();
-            NameInput = new TextBox();
-            label2 = new Label();
             DeleteButton = new Button();
+            label2 = new Label();
+            NameInput = new TextBox();
             SuspendLayout();
             // 
             // workoutLabel
@@ -102,13 +112,16 @@ namespace CSC_455_Project
             button2.TabIndex = 5;
             button2.Text = "Edit Exercise";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
-            // NameInput
+            // DeleteButton
             // 
-            NameInput.Location = new Point(26, 384);
-            NameInput.Name = "NameInput";
-            NameInput.Size = new Size(127, 23);
-            NameInput.TabIndex = 6;
+            DeleteButton.Location = new Point(205, 330);
+            DeleteButton.Name = "DeleteButton";
+            DeleteButton.Size = new Size(75, 23);
+            DeleteButton.TabIndex = 8;
+            DeleteButton.Text = "Delete";
+            DeleteButton.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -119,14 +132,12 @@ namespace CSC_455_Project
             label2.TabIndex = 7;
             label2.Text = "Exercise Name";
             // 
-            // DeleteButton
+            // NameInput
             // 
-            DeleteButton.Location = new Point(205, 330);
-            DeleteButton.Name = "DeleteButton";
-            DeleteButton.Size = new Size(75, 23);
-            DeleteButton.TabIndex = 8;
-            DeleteButton.Text = "Delete";
-            DeleteButton.UseVisualStyleBackColor = true;
+            NameInput.Location = new Point(26, 384);
+            NameInput.Name = "NameInput";
+            NameInput.Size = new Size(127, 23);
+            NameInput.TabIndex = 6;
             // 
             // EditWorkout
             // 
@@ -154,8 +165,8 @@ namespace CSC_455_Project
         private Label label1;
         private Button button1;
         private Button button2;
-        private TextBox NameInput;
-        private Label label2;
         private Button DeleteButton;
+        private Label label2;
+        private TextBox NameInput;
     }
 }

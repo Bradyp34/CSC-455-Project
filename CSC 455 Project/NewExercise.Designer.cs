@@ -16,8 +16,12 @@
             // Add Muscle Groups to options
             foreach (var item in Enum.GetNames(typeof(Muscles))) 
             {
-                checkedListBox1.Items.Add(item);
+                var l = checkedListBox1.Items.Add(item);
+                Enum.TryParse<Muscles>(item, out Muscles muscle);
+
+                
             }
+            SetName.Text = exercise.name;
         }
 
         /// <summary>
@@ -48,6 +52,8 @@
             RepCount = new NumericUpDown();
             label1 = new Label();
             label3 = new Label();
+            SetName = new TextBox();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)SetCount).BeginInit();
             ((System.ComponentModel.ISupportInitialize)RepCount).BeginInit();
             SuspendLayout();
@@ -63,7 +69,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(114, 321);
+            button1.Location = new Point(231, 321);
             button1.Name = "button1";
             button1.Size = new Size(106, 23);
             button1.TabIndex = 9;
@@ -113,11 +119,29 @@
             label3.TabIndex = 15;
             label3.Text = "Reps";
             // 
+            // SetName
+            // 
+            SetName.Location = new Point(12, 321);
+            SetName.Name = "SetName";
+            SetName.Size = new Size(202, 23);
+            SetName.TabIndex = 16;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(12, 308);
+            label4.Name = "label4";
+            label4.Size = new Size(84, 15);
+            label4.TabIndex = 17;
+            label4.Text = "Exercise Name";
+            // 
             // NewExercise
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(349, 356);
+            Controls.Add(label4);
+            Controls.Add(SetName);
             Controls.Add(label3);
             Controls.Add(label1);
             Controls.Add(RepCount);
@@ -141,5 +165,7 @@
         private NumericUpDown RepCount;
         private Label label1;
         private Label label3;
+        private TextBox SetName;
+        private Label label4;
     }
 }

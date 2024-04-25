@@ -24,7 +24,7 @@ namespace CSC_455_Project
     {
         public string name;
 
-        public List<Exercise> exercises;
+        public HashSet<Exercise> exercises;
 
         public override int GetHashCode()
         {
@@ -43,7 +43,7 @@ namespace CSC_455_Project
         {
             if (name == null) throw new ArgumentNullException("No Name");
             this.name = name;
-            this.exercises = new List<Exercise>();
+            this.exercises = new HashSet<Exercise>();
         }
 
         public void addExercise(Exercise exercise) 
@@ -68,6 +68,20 @@ namespace CSC_455_Project
         public int sets;
 
         public int reps;
+
+        public override int GetHashCode()
+        {
+            return name.GetHashCode();
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is Exercise)
+            {
+                return this.name == ((Exercise)obj).name;
+            }
+            return false;
+        }
 
         public Exercise(string name)
         {
