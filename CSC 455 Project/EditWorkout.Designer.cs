@@ -8,10 +8,12 @@
         private System.ComponentModel.IContainer components = null;
 
         public string workoutName;
-        public EditWorkout(string workoutName)
+        private Workout workout;
+        public EditWorkout(Workout workout)
         {
+            this.workout = workout;
             InitializeComponent();
-            this.workoutName = workoutName;
+            this.workoutName = workout.name;
             workoutLabel.Text = workoutName;
         }
 

@@ -7,9 +7,17 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        public NewExercise(Exception excercise)
-        {
+        private Exercise exercise;
 
+        public NewExercise(Exercise exercise)
+        {
+            InitializeComponent();
+            this.exercise = exercise;
+            // Add Muscle Groups to options
+            foreach (var item in Enum.GetNames(typeof(Muscles))) 
+            {
+                checkedListBox1.Items.Add(item);
+            }
         }
 
         /// <summary>

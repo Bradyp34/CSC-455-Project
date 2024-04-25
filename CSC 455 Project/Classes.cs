@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSC_455_Project
 {
-    enum Muscles
+    public enum Muscles
     {
         Chest,
         Biceps,
@@ -25,6 +25,19 @@ namespace CSC_455_Project
         public string name;
 
         public List<Exercise> exercises;
+
+        public override int GetHashCode()
+        {
+            return name.GetHashCode();
+        }
+        public override bool Equals(object? obj)
+        {
+            if (obj is Workout)
+            {
+                return this.name == ((Workout)obj).name;
+            }
+            return false;
+        }
 
         public Workout(string name)
         {
@@ -46,7 +59,7 @@ namespace CSC_455_Project
     }
 
 
-    class Exercise
+    public class Exercise
     {
         public string name;
 
