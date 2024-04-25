@@ -1,0 +1,60 @@
+# For most projects, this workflow file will not need changing; you simply need
+# to commit it to your repository.
+#
+# You may wish to alter this file to override the set of languages analyzed,
+# or to provide custom queries or build logic.
+#
+# ******** NOTE ********
+# We have attempted to detect the languages in your repository. Please check
+# the `language` matrix defined below to confirm you have the correct set of
+# supported CodeQL languages.
+#
+name: "CodeQL"
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    - cron: '37 7 * * 3'
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: windows-latest  # Changed from ubuntu-latest
+    timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - language: csharp
+          build-mode: manual  # Changed from autobuild to manual
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+        build-mode: ${{ matrix.build-mode }}
+    
+    - if: matrix.build-mode == 'manual'
+      run: |
+        dotnet restore "CSC 455 Project.sln"
+        dotnet build "CSC 455 Project.sln" --configuration Release
+
+    
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{matrix.language}}"
