@@ -58,9 +58,10 @@ jobs:
         build-mode: ${{ matrix.build-mode }}
     
     - if: matrix.build-mode == 'manual'
-      run:
-        dotnet restore MySolution.sln
-        dotnet build MySolution.sln --configuration Release
+      run: |
+        dotnet restore "CSC 455 Project.sln"
+        dotnet build "CSC 455 Project.sln" --configuration Release
+
     
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
