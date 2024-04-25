@@ -17,10 +17,20 @@
             foreach (var item in Enum.GetNames(typeof(Muscles))) 
             {
                 var l = checkedListBox1.Items.Add(item);
-                Enum.TryParse<Muscles>(item, out Muscles muscle);
-
                 
             }
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                Enum.TryParse<Muscles>(checkedListBox1.Items[i].ToString(), out Muscles muscle);
+
+                // Check Muscles that we already set
+                if (exercise.musclesHit.Contains(muscle))
+                {
+                    checkedListBox1.SetItemCheckState(i, CheckState.Checked);
+                }
+                
+            }
+
             SetName.Text = exercise.name;
         }
 

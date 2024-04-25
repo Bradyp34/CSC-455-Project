@@ -63,7 +63,7 @@ namespace CSC_455_Project
     {
         public string name;
 
-        public List<Muscles> musclesHit;
+        public HashSet<Muscles> musclesHit;
 
         public int sets;
 
@@ -87,7 +87,7 @@ namespace CSC_455_Project
         {
             if (name == null) throw new ArgumentNullException("No Name");
             this.name = name;
-            this.musclesHit = new List<Muscles>();
+            this.musclesHit = new HashSet<Muscles>();
         }
     }
 }
