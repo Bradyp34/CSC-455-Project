@@ -22,9 +22,9 @@ namespace CSC_455_Project
 
     public class Workout
     {
-        public string name;
+        public string name { get; set; }
 
-        public HashSet<Exercise> exercises;
+        public HashSet<Exercise> exercises { get; set; }
 
         public override int GetHashCode()
         {
@@ -61,13 +61,13 @@ namespace CSC_455_Project
 
     public class Exercise
     {
-        public string name;
+        public string name { get; set; }
 
-        public HashSet<Muscles> musclesHit;
+        public HashSet<Muscles> musclesHit { get; set; }
 
-        public int sets;
+        public int sets { get; set; }
 
-        public int reps;
+        public int reps { get; set; }
 
         public override int GetHashCode()
         {

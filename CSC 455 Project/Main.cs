@@ -1,18 +1,37 @@
+using System.Formats.Asn1;
 using System.Security.Cryptography.X509Certificates;
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
 namespace CSC_455_Project {
     public partial class Main : Form
     {
 
         private HashSet<Workout> workouts;
 
+
+
+
         public Main()
         {
             InitializeComponent();
-            workouts = new HashSet<Workout>();
             // TODO: Load from Json
-        }
+            try
+            {
+                string fileName = "Workouts.json";
+                string jsonString = File.ReadAllText(fileName);
+                workouts = JsonSerializer.Deserialize<HashSet<Workout>>(jsonString)!;
+                foreach (Workout workout in workouts)
+                {
+                    listBox1.Items.Add(workout.name);
+                }
+            }
+            catch(Exception ex)
+            {
+                workouts = new HashSet<Workout>();
+            }
+            workouts.OnDeserialization(this);
 
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -32,7 +51,10 @@ namespace CSC_455_Project {
             {
                 listBox1.Items.Add(textBox1.Text);
             }
-            // TODO: Save data to JSON File
+            
+            string fileName = "Workouts.json";
+            string jsonString = JsonSerializer.Serialize(workouts);
+            File.WriteAllText(fileName, jsonString);
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,15 +74,30 @@ namespace CSC_455_Project {
                     box.ShowDialog();
                 }
             }
+            string jsonString = JsonSerializer.Serialize(workouts);
+            string fileName = "Workouts.json";
+            File.WriteAllText(fileName, jsonString);
         }
 
         private void deleteWorkout(object sender, EventArgs e)
         {
+            var selectedItem = listBox1.SelectedItem;
+            
+
             // Make sure item is selected
-            if (listBox1.SelectedItem != null)
+            if (selectedItem!= null)
             {
+                string name = selectedItem.ToString();
                 listBox1.Items.Remove(listBox1.SelectedItem);
+                workouts.Remove(workouts.FirstOrDefault(x => x.name == name));
+                string fileName = "Workouts.json";
+                string jsonString = JsonSerializer.Serialize(workouts);
+                File.WriteAllText(fileName, jsonString);
             }
+            // Add Remove Workout from list
+            
+
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
