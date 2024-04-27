@@ -12,14 +12,31 @@ namespace CSC_455_Project.WorkoutDate
 {
     public partial class SelectWorkout : Form
     {
-        public SelectWorkout()
+        private HashSet<Exercise> exerciseList;
+        private HashSet<Workout> workouts;
+        private void RefreshList()
         {
+            listBox1.Items.Clear();
+
+            
+        }
+        public SelectWorkout(HashSet<Workout> workouts,HashSet<Exercise> exerciseList)
+        {
+            this.workouts = workouts;
+            this.exerciseList = exerciseList;
             InitializeComponent();
+            foreach (var item in workouts)
+            {
+                listBox1.Items.Add(item.name);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if(listBox1.SelectedItem != null)
+            {
 
+            }
         }
 
 
