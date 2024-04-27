@@ -19,7 +19,7 @@ namespace CSC_455_Project
 
         private void CreateExercise(object sender, EventArgs e)
         {
-            exercise.name = SetName.Text;
+            
             var sets = Convert.ToInt32(SetCount.Value);
             var reps = Convert.ToInt32(RepCount.Value);
             if (sets >= 1 && reps >= 1) 
@@ -32,8 +32,11 @@ namespace CSC_455_Project
                 Enum.TryParse<Muscles>(item.ToString(),out Muscles muscle);
                 exercise.musclesHit.Add(muscle);
             }
-
-            Close();
+            if(SetName.Text != "")
+            {
+                exercise.name = SetName.Text;
+                Close();
+            }
         }
 
     }

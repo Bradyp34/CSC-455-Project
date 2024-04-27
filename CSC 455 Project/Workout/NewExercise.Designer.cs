@@ -92,6 +92,7 @@
             checkedListBox1.FormattingEnabled = true;
             checkedListBox1.Location = new Point(114, 40);
             checkedListBox1.Name = "checkedListBox1";
+            checkedListBox1.SelectionMode = SelectionMode.None;
             checkedListBox1.Size = new Size(116, 220);
             checkedListBox1.TabIndex = 8;
             // 
@@ -102,7 +103,7 @@
             SetCount.Name = "SetCount";
             SetCount.Size = new Size(99, 23);
             SetCount.TabIndex = 12;
-            SetCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            SetCount.Value = new decimal(new int[] { 3, 0, 0, 0 });
             // 
             // RepCount
             // 
@@ -110,6 +111,7 @@
             RepCount.Name = "RepCount";
             RepCount.Size = new Size(95, 23);
             RepCount.TabIndex = 13;
+            RepCount.Value = new decimal(new int[] { 10, 0, 0, 0 });
             // 
             // label1
             // 

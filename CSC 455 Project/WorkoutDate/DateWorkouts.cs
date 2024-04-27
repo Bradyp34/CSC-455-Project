@@ -27,7 +27,7 @@ namespace CSC_455_Project
             
             if (listBox1 != null && listBox1.SelectedItem != null)
             {
-                Exercise exercise = dateWorkout.exercises.FirstOrDefault(i => i.name == listBox1.SelectedItem.ToString());
+                Exercise exercise = Functions.SearchForExercise(dateWorkout.exercises, listBox1.SelectedItem.ToString());
                 if (exercise != null)
                 {
                     var box = new NewExercise(exercise);
@@ -49,8 +49,7 @@ namespace CSC_455_Project
             // Make sure item is selected
             if (selectedItem != null)
             {
-                string name = selectedItem.ToString();
-                dateWorkout.exercises.Remove(dateWorkout.exercises.FirstOrDefault(x => x.name == name));
+                Functions.RemoveExercise(dateWorkout.exercises, selectedItem.ToString());
             }
         }
         private void AddExercise_Click(object sender, EventArgs e)

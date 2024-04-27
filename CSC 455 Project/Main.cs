@@ -16,38 +16,16 @@ namespace CSC_455_Project {
         {
             InitializeComponent();
 
-            // Save workouts
-            try
+
+            workouts = Functions.LoadWorkouts();
+            foreach (Workout workout in workouts)
             {
-                
-                string fileName = "Workouts.json";
-                string jsonString = File.ReadAllText(fileName);
-                workouts = JsonSerializer.Deserialize<HashSet<Workout>>(jsonString)!;
-                foreach (Workout workout in workouts)
-                {
-                    listBox1.Items.Add(workout.name);
-                }
+                listBox1.Items.Add(workout.name);
             }
-            catch(Exception ex)
-            {
-                workouts = new HashSet<Workout>();
-            }
-            workouts.OnDeserialization(this);
 
 
-            // Save WorkoutDays
-            try
-            {
-
-                string fileName = "WorkoutDays.json";
-                 string jsonString = File.ReadAllText(fileName);
-                workoutDays = JsonSerializer.Deserialize<HashSet<WorkoutDay>>(jsonString)!;
-            }
-            catch (Exception ex)
-            {
-                workoutDays = new HashSet<WorkoutDay>();
-            }
-            workoutDays.OnDeserialization(this);
+            // Load WorkoutDays
+            workoutDays = Functions.LoadWorkoutDates();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -68,10 +46,8 @@ namespace CSC_455_Project {
             {
                 listBox1.Items.Add(textBox1.Text);
             }
-            
-            string fileName = "Workouts.json";
-            string jsonString = JsonSerializer.Serialize(workouts);
-            File.WriteAllText(fileName, jsonString);
+
+            Functions.SaveWorkouts(workouts);
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -84,16 +60,14 @@ namespace CSC_455_Project {
             // Open editworkout window
             if (listBox1.SelectedItem != null)
             {
-                Workout workout = workouts.FirstOrDefault(i => i.name == listBox1.SelectedItem.ToString());
+                Workout workout = Functions.SearchForWorkout(workouts, listBox1.SelectedItem.ToString());
                 if (workout != null)
                 {
                     var box = new EditWorkout(workout);
                     box.ShowDialog();
                 }
             }
-            string jsonString = JsonSerializer.Serialize(workouts);
-            string fileName = "Workouts.json";
-            File.WriteAllText(fileName, jsonString);
+            Functions.SaveWorkouts(workouts);
         }
 
         private void deleteWorkout(object sender, EventArgs e)
@@ -107,9 +81,8 @@ namespace CSC_455_Project {
                 string name = selectedItem.ToString();
                 listBox1.Items.Remove(listBox1.SelectedItem);
                 workouts.Remove(workouts.FirstOrDefault(x => x.name == name));
-                string fileName = "Workouts.json";
-                string jsonString = JsonSerializer.Serialize(workouts);
-                File.WriteAllText(fileName, jsonString);
+
+                Functions.SaveWorkouts(workouts);
             }
             // Add Remove Workout from list
             
@@ -119,20 +92,9 @@ namespace CSC_455_Project {
 
         private void button3_Click(object sender, EventArgs e)
         {
-            // Check if already exists
-            WorkoutDay exist = workoutDays.FirstOrDefault(x => x.day == DateOnly.Parse(dateTimePicker1.Value.ToShortDateString()));
-            DateWorkouts box;
-            WorkoutDay workday;
-            if (exist != null)
-            {
-                workday = exist;
-            }
-            else
-            {
-                workday = new WorkoutDay(DateOnly.Parse(dateTimePicker1.Value.ToShortDateString()));
-            }
+            var workday = Functions.CheckForWorkoutDay(workoutDays, dateTimePicker1.Value.ToShortDateString());
 
-            box = new DateWorkouts(workday);
+            var box = new DateWorkouts(workday);
             box.ShowDialog();
 
             // If added items to save.
@@ -141,9 +103,7 @@ namespace CSC_455_Project {
                 workoutDays.Add(workday);
 
                 // Save to File
-                string fileName = "WorkoutDays.json";
-                string jsonString = JsonSerializer.Serialize(workoutDays);
-                File.WriteAllText(fileName, jsonString);
+                Functions.SaveWorkoutDates(workoutDays);
             }
         }
     }

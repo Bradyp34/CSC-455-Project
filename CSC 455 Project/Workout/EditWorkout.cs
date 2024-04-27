@@ -35,7 +35,7 @@ namespace CSC_455_Project
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Exercise exercise = workout.exercises.FirstOrDefault(i => i.name == listBox1.SelectedItem.ToString());
+            Exercise exercise = Functions.SearchForExercise(workout.exercises, listBox1.SelectedItem.ToString());
             if (exercise != null)
             {
                 var box = new NewExercise(exercise);
@@ -51,8 +51,7 @@ namespace CSC_455_Project
             // Make sure item is selected
             if (selectedItem != null)
             {
-                string name = selectedItem.ToString();
-                workout.removeExercise(workout.exercises.FirstOrDefault(x => x.name == name));
+                Functions.RemoveExercise(workout.exercises, selectedItem.ToString());
             }
             RefreshList();
         }
