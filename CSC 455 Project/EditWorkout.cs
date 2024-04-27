@@ -6,8 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace CSC_455_Project
 {
@@ -39,6 +41,20 @@ namespace CSC_455_Project
                 var box = new NewExercise(exercise);
                 box.ShowDialog();
             }
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            var selectedItem = listBox1.SelectedItem;
+
+
+            // Make sure item is selected
+            if (selectedItem != null)
+            {
+                string name = selectedItem.ToString();
+                workout.removeExercise(workout.exercises.FirstOrDefault(x => x.name == name));
+            }
+            RefreshList();
         }
     }
 }

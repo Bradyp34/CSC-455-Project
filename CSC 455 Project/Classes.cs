@@ -3,9 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace CSC_455_Project
 {
+
+    public class WorkoutDay
+    {
+        public DateOnly day { get; set; }
+        public HashSet<Exercise> exercises { get; set; }
+
+
+        public override int GetHashCode()
+        {
+            return day.GetHashCode();
+        }
+        public override bool Equals(object? obj)
+        {
+            if (obj is WorkoutDay)
+            {
+                return this.day == ((WorkoutDay)obj).day;
+            }
+            return false;
+        }
+
+        public WorkoutDay(DateOnly day) 
+        {
+            this.day = day;
+            exercises = new HashSet<Exercise>();
+        }
+    }
+
     public enum Muscles
     {
         Chest,

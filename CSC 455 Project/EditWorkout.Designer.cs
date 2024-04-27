@@ -122,6 +122,7 @@ namespace CSC_455_Project
             DeleteButton.TabIndex = 8;
             DeleteButton.Text = "Delete";
             DeleteButton.UseVisualStyleBackColor = true;
+            DeleteButton.Click += DeleteButton_Click;
             // 
             // label2
             // 

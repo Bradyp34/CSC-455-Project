@@ -7,14 +7,14 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        public string date;
+        public WorkoutDay dateWorkout;
 
         // Allow for Date to be passed in on creation
-        public DateWorkouts(string date)
+        public DateWorkouts(WorkoutDay date)
         {
             InitializeComponent();
-            this.date = date;
-            dateLabel.Text = date;
+            this.dateWorkout = date;
+            dateLabel.Text = date.day.ToShortDateString();
         }
 
         /// <summary>
@@ -39,22 +39,77 @@
         private void InitializeComponent()
         {
             dateLabel = new Label();
+            listBox1 = new ListBox();
+            AddWorkout = new Button();
+            AddExercise = new Button();
+            Delete = new Button();
+            Edit = new Button();
             SuspendLayout();
             // 
             // dateLabel
             // 
             dateLabel.AutoSize = true;
-            dateLabel.Location = new Point(360, 9);
+            dateLabel.Location = new Point(235, 9);
             dateLabel.Name = "dateLabel";
             dateLabel.Size = new Size(38, 15);
             dateLabel.TabIndex = 0;
             dateLabel.Text = "label1";
             // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 15;
+            listBox1.Location = new Point(152, 50);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(195, 229);
+            listBox1.TabIndex = 1;
+            // 
+            // AddWorkout
+            // 
+            AddWorkout.Location = new Point(152, 331);
+            AddWorkout.Name = "AddWorkout";
+            AddWorkout.Size = new Size(88, 23);
+            AddWorkout.TabIndex = 2;
+            AddWorkout.Text = "Add Workout";
+            AddWorkout.UseVisualStyleBackColor = true;
+            // 
+            // AddExercise
+            // 
+            AddExercise.Location = new Point(263, 331);
+            AddExercise.Name = "AddExercise";
+            AddExercise.Size = new Size(84, 23);
+            AddExercise.TabIndex = 3;
+            AddExercise.Text = "Add Exercise";
+            AddExercise.UseVisualStyleBackColor = true;
+            // 
+            // Delete
+            // 
+            Delete.Location = new Point(272, 285);
+            Delete.Name = "Delete";
+            Delete.Size = new Size(75, 23);
+            Delete.TabIndex = 4;
+            Delete.Text = "Delete";
+            Delete.UseVisualStyleBackColor = true;
+            // 
+            // Edit
+            // 
+            Edit.Location = new Point(152, 285);
+            Edit.Name = "Edit";
+            Edit.Size = new Size(75, 23);
+            Edit.TabIndex = 5;
+            Edit.Text = "Edit";
+            Edit.UseVisualStyleBackColor = true;
+            // 
             // DateWorkouts
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(513, 422);
+            Controls.Add(Edit);
+            Controls.Add(Delete);
+            Controls.Add(AddExercise);
+            Controls.Add(AddWorkout);
+            Controls.Add(listBox1);
             Controls.Add(dateLabel);
             Name = "DateWorkouts";
             Text = "Form2";
@@ -65,5 +120,10 @@
         #endregion
 
         private Label dateLabel;
+        private ListBox listBox1;
+        private Button AddWorkout;
+        private Button AddExercise;
+        private Button Delete;
+        private Button Edit;
     }
 }

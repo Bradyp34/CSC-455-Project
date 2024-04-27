@@ -1,4 +1,5 @@
 using System.Formats.Asn1;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -8,15 +9,17 @@ namespace CSC_455_Project {
 
         private HashSet<Workout> workouts;
 
-
+        private HashSet<WorkoutDay> workoutDays;
 
 
         public Main()
         {
             InitializeComponent();
-            // TODO: Load from Json
+
+            // Save workouts
             try
             {
+                
                 string fileName = "Workouts.json";
                 string jsonString = File.ReadAllText(fileName);
                 workouts = JsonSerializer.Deserialize<HashSet<Workout>>(jsonString)!;
@@ -31,6 +34,20 @@ namespace CSC_455_Project {
             }
             workouts.OnDeserialization(this);
 
+
+            // Save WorkoutDays
+            try
+            {
+
+                string fileName = "WorkoutDays.json";
+                string jsonString = File.ReadAllText(fileName);
+                workoutDays = JsonSerializer.Deserialize<HashSet<WorkoutDay>>(jsonString)!;
+            }
+            catch (Exception ex)
+            {
+                workoutDays = new HashSet<WorkoutDay>();
+            }
+            workoutDays.OnDeserialization(this);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -102,8 +119,20 @@ namespace CSC_455_Project {
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var box = new DateWorkouts(dateTimePicker1.Text);
+            var workday = new WorkoutDay(DateOnly.Parse(dateTimePicker1.Value.ToShortDateString()));
+            var box = new DateWorkouts(workday);
             box.ShowDialog();
+
+            // If added items to save.
+            if(workday.exercises.Count > 0)
+            {
+                workoutDays.Add(workday);
+
+                // Save to File
+                string fileName = "WorkoutsDays.json";
+                string jsonString = JsonSerializer.Serialize(workoutDays);
+                File.WriteAllText(fileName, jsonString);
+            }
         }
     }
 }
