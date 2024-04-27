@@ -40,7 +40,7 @@ namespace CSC_455_Project {
             {
 
                 string fileName = "WorkoutDays.json";
-                string jsonString = File.ReadAllText(fileName);
+                 string jsonString = File.ReadAllText(fileName);
                 workoutDays = JsonSerializer.Deserialize<HashSet<WorkoutDay>>(jsonString)!;
             }
             catch (Exception ex)
@@ -119,8 +119,20 @@ namespace CSC_455_Project {
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var workday = new WorkoutDay(DateOnly.Parse(dateTimePicker1.Value.ToShortDateString()));
-            var box = new DateWorkouts(workday);
+            // Check if already exists
+            WorkoutDay exist = workoutDays.FirstOrDefault(x => x.day == DateOnly.Parse(dateTimePicker1.Value.ToShortDateString()));
+            DateWorkouts box;
+            WorkoutDay workday;
+            if (exist != null)
+            {
+                workday = exist;
+            }
+            else
+            {
+                workday = new WorkoutDay(DateOnly.Parse(dateTimePicker1.Value.ToShortDateString()));
+            }
+
+            box = new DateWorkouts(workday);
             box.ShowDialog();
 
             // If added items to save.
@@ -129,7 +141,7 @@ namespace CSC_455_Project {
                 workoutDays.Add(workday);
 
                 // Save to File
-                string fileName = "WorkoutsDays.json";
+                string fileName = "WorkoutDays.json";
                 string jsonString = JsonSerializer.Serialize(workoutDays);
                 File.WriteAllText(fileName, jsonString);
             }

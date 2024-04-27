@@ -70,7 +70,7 @@ namespace CSC_455_Project
             // workoutLabel
             // 
             workoutLabel.AutoSize = true;
-            workoutLabel.Location = new Point(233, -1);
+            workoutLabel.Location = new Point(142, 9);
             workoutLabel.Name = "workoutLabel";
             workoutLabel.Size = new Size(38, 15);
             workoutLabel.TabIndex = 0;

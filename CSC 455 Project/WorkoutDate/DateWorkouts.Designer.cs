@@ -15,6 +15,10 @@
             InitializeComponent();
             this.dateWorkout = date;
             dateLabel.Text = date.day.ToShortDateString();
+            foreach (var item in date.exercises)
+            {
+                listBox1.Items.Add(item.name);
+            }
         }
 
         /// <summary>
@@ -81,6 +85,7 @@
             AddExercise.TabIndex = 3;
             AddExercise.Text = "Add Exercise";
             AddExercise.UseVisualStyleBackColor = true;
+            AddExercise.Click += this.AddExercise_Click;
             // 
             // Delete
             // 
@@ -90,6 +95,7 @@
             Delete.TabIndex = 4;
             Delete.Text = "Delete";
             Delete.UseVisualStyleBackColor = true;
+            Delete.Click += Delete_Click;
             // 
             // Edit
             // 
@@ -99,6 +105,7 @@
             Edit.TabIndex = 5;
             Edit.Text = "Edit";
             Edit.UseVisualStyleBackColor = true;
+            Edit.Click += Edit_Click;
             // 
             // DateWorkouts
             // 
