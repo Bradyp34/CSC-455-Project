@@ -13,7 +13,7 @@ namespace CSC_455_Project
 {
     public partial class DateWorkouts : Form
     {
-        private void RefreshList()
+        public void RefreshList()
         {
             listBox1.Items.Clear();
             listBox2.Items.Clear();
@@ -30,7 +30,7 @@ namespace CSC_455_Project
 
         }
 
-        private void Edit_Click(object sender, EventArgs e)
+        public void Edit_Click(object sender, EventArgs e)
         {
 
             if (listBox1 != null && listBox1.SelectedItem != null)
@@ -49,7 +49,7 @@ namespace CSC_455_Project
             }
         }
 
-        private void Delete_Click(object sender, EventArgs e)
+        public void Delete_Click(object sender, EventArgs e)
         {
             var selectedItem = listBox1.SelectedItem;
 
@@ -60,7 +60,7 @@ namespace CSC_455_Project
                 Functions.RemoveExercise(dateWorkout.exercises, selectedItem.ToString());
             }
         }
-        private void AddExercise_Click(object sender, EventArgs e)
+        public void AddExercise_Click(object sender, EventArgs e)
         {
             Exercise exercise = new Exercise("");
 
@@ -79,7 +79,7 @@ namespace CSC_455_Project
             InitializeComponent();
         }
 
-        private void AddWorkout_Click(object sender, EventArgs e)
+        public void AddWorkout_Click(object sender, EventArgs e)
         {
             HashSet<Exercise> exerciseList = new HashSet<Exercise>();
             var box = new SelectWorkout(workouts,exerciseList);
