@@ -94,7 +94,7 @@ namespace CSC_455_Project {
         {
             var workday = Functions.CheckForWorkoutDay(workoutDays, dateTimePicker1.Value.ToShortDateString());
 
-            var box = new DateWorkouts(workday);
+            var box = new DateWorkouts(workday,this.workouts);
             box.ShowDialog();
 
             // If added items to save.

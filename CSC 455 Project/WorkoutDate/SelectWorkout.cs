@@ -35,8 +35,14 @@ namespace CSC_455_Project.WorkoutDate
         {
             if(listBox1.SelectedItem != null)
             {
-
+                var workout = Functions.SearchForWorkout(workouts, listBox1.SelectedItem.ToString());
+                if (workout != null)
+                {
+                    exerciseList.UnionWith(workout.exercises);
+                }
+                Close();
             }
+            
         }
 
 

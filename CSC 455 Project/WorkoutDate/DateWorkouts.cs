@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSC_455_Project.WorkoutDate;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,9 +23,9 @@ namespace CSC_455_Project
             }
         }
 
-            private void Edit_Click(object sender, EventArgs e)
+        private void Edit_Click(object sender, EventArgs e)
         {
-            
+
             if (listBox1 != null && listBox1.SelectedItem != null)
             {
                 Exercise exercise = Functions.SearchForExercise(dateWorkout.exercises, listBox1.SelectedItem.ToString());
@@ -35,7 +36,7 @@ namespace CSC_455_Project
                     if (exercise.name != "")
                     {
                         dateWorkout.exercises.Add(exercise);
-                        listBox1.Items.Add(exercise.name);
+                        RefreshList();
                     }
                 }
             }
@@ -67,8 +68,18 @@ namespace CSC_455_Project
 
         public DateWorkouts()
         {
-            
+
             InitializeComponent();
+        }
+
+        private void AddWorkout_Click(object sender, EventArgs e)
+        {
+            HashSet<Exercise> exerciseList = new HashSet<Exercise>();
+            var box = new SelectWorkout(workouts,exerciseList);
+            box.ShowDialog();
+            dateWorkout.exercises.UnionWith(exerciseList);
+            RefreshList();
+
         }
     }
 }

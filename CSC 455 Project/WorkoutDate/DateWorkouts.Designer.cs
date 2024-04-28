@@ -8,12 +8,14 @@
         private System.ComponentModel.IContainer components = null;
 
         public WorkoutDay dateWorkout;
+        public HashSet<Workout> workouts;
 
         // Allow for Date to be passed in on creation
-        public DateWorkouts(WorkoutDay date)
+        public DateWorkouts(WorkoutDay date, HashSet<Workout> workouts)
         {
             InitializeComponent();
             this.dateWorkout = date;
+            this.workouts = workouts;
             dateLabel.Text = date.day.ToShortDateString();
             foreach (var item in date.exercises)
             {
@@ -76,6 +78,7 @@
             AddWorkout.TabIndex = 2;
             AddWorkout.Text = "Add Workout";
             AddWorkout.UseVisualStyleBackColor = true;
+            AddWorkout.Click += AddWorkout_Click;
             // 
             // AddExercise
             // 
@@ -85,7 +88,7 @@
             AddExercise.TabIndex = 3;
             AddExercise.Text = "Add Exercise";
             AddExercise.UseVisualStyleBackColor = true;
-            AddExercise.Click += this.AddExercise_Click;
+            AddExercise.Click += AddExercise_Click;
             // 
             // Delete
             // 

@@ -89,10 +89,10 @@
             // 
             // checkedListBox1
             // 
+            checkedListBox1.CheckOnClick = true;
             checkedListBox1.FormattingEnabled = true;
             checkedListBox1.Location = new Point(114, 40);
             checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.SelectionMode = SelectionMode.None;
             checkedListBox1.Size = new Size(116, 220);
             checkedListBox1.TabIndex = 8;
             // 
