@@ -14,6 +14,7 @@ namespace CSC_455_Project.WorkoutDate
     {
         private HashSet<Exercise> exerciseList;
         private HashSet<Workout> workouts;
+    
         private void RefreshList()
         {
             listBox1.Items.Clear();

@@ -16,11 +16,18 @@ namespace CSC_455_Project
         private void RefreshList()
         {
             listBox1.Items.Clear();
+            listBox2.Items.Clear();
 
             foreach (var item in dateWorkout.exercises)
             {
                 listBox1.Items.Add(item.name);
+                musclesHit.UnionWith(item.musclesHit);
             }
+            foreach (var item in musclesHit)
+            {
+                listBox2.Items.Add(Enum.GetName(typeof(Muscles), item));
+            }
+
         }
 
         private void Edit_Click(object sender, EventArgs e)
