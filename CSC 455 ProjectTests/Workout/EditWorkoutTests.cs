@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 namespace CSC_455_Project.Tests {
 	[TestClass()]
 	public class EditWorkoutTests {
-		[TestMethod()]
-		public void EditWorkout_LoadTest () {
-			Assert.Fail();
-		}
+		
+
 	}
 }
