@@ -163,15 +163,19 @@ namespace CSC_455_Project.Tests {
 			var workoutDay1 = new WorkoutDay(DateOnly.Parse("2022-01-01"));
 			var workoutDay2 = new WorkoutDay(DateOnly.Parse("2022-01-02"));
 
+			var exercise = new Exercise("Test Exercise");
+			workoutDay1.exercises.Add(exercise);
+			workoutDay2.exercises.Add(exercise);
+
 			var workoutDays = new HashSet<WorkoutDay> { workoutDay1, workoutDay2 };
 
 			// Act
 			var result = Functions.CheckForWorkoutDay(workoutDays, "2022-01-03");
 
 			// Assert
-			// Add your assertions here
-			Assert.IsTrue(result == null);
+			Assert.IsFalse(result.exercises.Any());
 		}
+
 
 		[TestMethod()]
 		public void CheckForWorkoutDayNewTest () {
