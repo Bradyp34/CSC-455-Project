@@ -15,10 +15,6 @@ namespace CSC_455_Project
 {
 	public partial class EditWorkout : Form {
 
-		public void label2_Click (object sender, EventArgs e) {
-
-		}
-
 		public void button1_Click (object sender, EventArgs e) {
 
 			Exercise exercise = new Exercise(NameInput.Text);
