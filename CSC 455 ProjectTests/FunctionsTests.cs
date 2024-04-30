@@ -8,7 +8,18 @@ using System.Threading.Tasks;
 
 namespace CSC_455_Project.Tests {
 	[TestClass()]
-	public class EditWorkoutTests {
-		
+	public class FunctionsTests {
+		[TestMethod()]
+		public void RemoveExerciseTest () {
+
+			Assert.Fail();
+		}
+
+		[TestMethod()]
+		public void SearchForWorkoutTest () {
+			var workouts = new List<string> ();
+
+			Assert.Fail();
+		}
 	}
 }
