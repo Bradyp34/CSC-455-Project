@@ -10,16 +10,19 @@ namespace CSC_455_Project.Tests {
 	[TestClass()]
 	public class FunctionsTests {
 		[TestMethod()]
-		public void RemoveExerciseTest () {
-
-			Assert.Fail();
-		}
-
-		[TestMethod()]
 		public void SearchForWorkoutTest () {
-			var workouts = new List<string> ();
+			// Arrange
+			var workout1 = new Workout("Workout 1");
+			var workout2 = new Workout("Workout 2");
 
-			Assert.Fail();
+			var workouts = new HashSet<Workout> { workout1, workout2 };
+
+			// Act
+			var result = Functions.SearchForWorkout(workouts, "Workout 1");
+
+			// Assert
+			// Add your assertions here
+			Assert.IsTrue(result == workout1);
 		}
 	}
 }

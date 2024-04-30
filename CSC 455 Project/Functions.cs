@@ -16,6 +16,7 @@ namespace CSC_455_Project
         {
             return workouts.FirstOrDefault(i => i.name == name);
         }
+
         public static Exercise SearchForExercise(HashSet<Exercise> exercises, string name)
         {
             return exercises.FirstOrDefault(i => i.name == name);
@@ -87,5 +88,5 @@ namespace CSC_455_Project
         {
             exercises.Remove(exercises.FirstOrDefault(x => x.name == name));
         }
-    }
+	}
 }
