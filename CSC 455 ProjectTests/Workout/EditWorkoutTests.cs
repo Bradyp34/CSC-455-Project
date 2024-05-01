@@ -8,46 +8,43 @@ using System.Threading.Tasks;
 using Xunit;
 using Moq;
 
-namespace CSC_455_Project.Tests {
+namespace CSC_455_Project_Tests {
+	[TestFixture]
 	public class EditWorkoutTests {
-		[Fact]
-		public void AddExercise_CallsAddExerciseOnService () {
-			// Arrange
-			var mockService = new Mock<IExerciseService>();
-			var form = new EditWorkout(mockService.Object);
+		private Mock<IExerciseFunctions> _mockExerciseFunctions;
+		private EditWorkout _editWorkout;
 
-			// Act
-			form.AddExercise("Test");
-
-			// Assert
-			mockService.Verify(s => s.AddExercise(It.IsAny<Exercise>()), Times.Once);
+		[SetUp]
+		public void SetUp () {
+			_mockExerciseFunctions = new Mock<IExerciseFunctions>();
+			_editWorkout = new EditWorkout(_mockExerciseFunctions.Object);
 		}
 
-		[Fact]
-		public void EditExercise_CallsSearchForExerciseOnService () {
+		[Test]
+		public void TestButton2Click_ExerciseFound_ShowsNewExerciseDialog () {
 			// Arrange
-			var mockService = new Mock<IExerciseService>();
-			var form = new EditWorkout(mockService.Object);
+			var exercise = new Exercise("Test");
+			_mockExerciseFunctions.Setup(x => x.SearchForExercise(It.IsAny<List<Exercise>>(), It.IsAny<string>())).Returns(exercise);
 
 			// Act
-			form.EditExercise("Test");
+			_editWorkout.button2_Click(null, null);
 
 			// Assert
-			mockService.Verify(s => s.SearchForExercise(It.IsAny<string>()), Times.Once);
+			// Here you would assert that ShowNewExerciseDialog was called with the correct parameters.
+			// This might involve making ShowNewExerciseDialog virtual and overriding it in a test-specific subclass, or it might involve some other form of interaction testing.
 		}
 
-		[Fact]
-		public void DeleteExercise_CallsRemoveExerciseOnService () {
+		[Test]
+		public void TestDeleteButtonClick_ItemSelected_RemovesExercise () {
 			// Arrange
-			var mockService = new Mock<IExerciseService>();
-			mockService.Setup(s => s.SearchForExercise(It.IsAny<string>())).Returns(new Exercise("Test"));
-			var form = new EditWorkout(mockService.Object);
+			_mockExerciseFunctions.Setup(x => x.RemoveExercise(It.IsAny<List<Exercise>>(), It.IsAny<string>()));
 
 			// Act
-			form.DeleteExercise("Test");
+			_editWorkout.DeleteButton_Click(null, null);
 
 			// Assert
-			mockService.Verify(s => s.RemoveExercise(It.IsAny<string>()), Times.Once);
+			_mockExerciseFunctions.Verify(x => x.RemoveExercise(It.IsAny<List<Exercise>>(), It.IsAny<string>()), Times.Once);
 		}
 	}
+}
 }

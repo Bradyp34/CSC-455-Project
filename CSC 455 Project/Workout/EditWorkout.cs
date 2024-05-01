@@ -19,20 +19,24 @@ namespace CSC_455_Project {
 	}
 
 	public partial class EditWorkout : Form {
-		private IExerciseService _exerciseService;
+		private readonly IExerciseFunctions _exerciseFunctions;
 
-		public EditWorkout (IExerciseService exerciseService) {
-			_exerciseService = exerciseService;
+		public EditWorkout (IExerciseFunctions exerciseFunctions) {
+			_exerciseFunctions = exerciseFunctions;
 		}
 
 		public void button1_Click (object sender, EventArgs e) {
-			if (NameInput.Text != "")
-				AddExercise(NameInput.Text);
+			Exercise exercise = new Exercise(NameInput.Text);
+			workout.addExercise(exercise);
+
+			ShowNewExerciseDialog(exercise);
+			RefreshList();
 		}
 
 		public void button2_Click (object sender, EventArgs e) {
-			if (listBox1.SelectedItem != null) {
-				EditExercise(listBox1.SelectedItem.ToString());
+			Exercise exercise = _exerciseFunctions.SearchForExercise(workout.exercises.ToList(), listBox1.SelectedItem.ToString());
+			if (exercise != null) {
+				ShowNewExerciseDialog(exercise);
 			}
 		}
 
@@ -48,24 +52,15 @@ namespace CSC_455_Project {
 			var box = new NewExercise(exercise);
 			box?.ShowDialog();
 
-			RefreshList();
-		}
-
-
-		public void EditExercise (string name) {
-			var exercise = _exerciseService.SearchForExercise(name);
-			if (exercise != null) {
-				var box = new NewExercise(exercise);
-				box.ShowDialog();
-			}
-		}
-
-		public void DeleteExercise (string name) {
-			if (listBox1.SelectedItem != null) {
-				_exerciseService.RemoveExercise(name);
+			if (selectedItem != null) {
+				_exerciseFunctions.RemoveExercise(workout.exercises.ToList(), selectedItem.ToString());
 				RefreshList();
 			}
 		}
 
+		private void ShowNewExerciseDialog (Exercise exercise) {
+			var box = new NewExercise(exercise);
+			box.ShowDialog();
+		}
 	}
 }
