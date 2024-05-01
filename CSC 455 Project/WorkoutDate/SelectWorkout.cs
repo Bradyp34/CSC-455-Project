@@ -10,12 +10,13 @@ using System.Windows.Forms;
 
 namespace CSC_455_Project.WorkoutDate
 {
-	public partial class SelectWorkout : Form {
-		public HashSet<Exercise> exerciseList;
-		public HashSet<Workout> workouts;
-
-		public void RefreshList () {
-			listBox1.Items.Clear();
+    public partial class SelectWorkout : Form
+    {
+        private HashSet<Exercise> exerciseList;
+        private HashSet<Workout> workouts;
+        private void RefreshList()
+        {
+            listBox1.Items.Clear();
 
 
 		}
