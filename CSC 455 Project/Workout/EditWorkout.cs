@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -12,10 +11,9 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace CSC_455_Project {
-	public interface IExerciseService {
-		void AddExercise (Exercise exercise);
-		Exercise SearchForExercise (string name);
-		void RemoveExercise (string name);
+	public interface IExerciseFunctions {
+		Exercise SearchForExercise (List<Exercise> exercises, string name);
+		void RemoveExercise (List<Exercise> exercises, string name);
 	}
 
 	public partial class EditWorkout : Form {
@@ -41,16 +39,7 @@ namespace CSC_455_Project {
 		}
 
 		public void DeleteButton_Click (object sender, EventArgs e) {
-			if (listBox1.SelectedItem != null)
-				DeleteExercise(listBox1.SelectedItem.ToString());
-		}
-
-		public void AddExercise (string name) {
-			var exercise = new Exercise(name);
-			_exerciseService?.AddExercise(exercise);
-
-			var box = new NewExercise(exercise);
-			box?.ShowDialog();
+			var selectedItem = listBox1.SelectedItem;
 
 			if (selectedItem != null) {
 				_exerciseFunctions.RemoveExercise(workout.exercises.ToList(), selectedItem.ToString());

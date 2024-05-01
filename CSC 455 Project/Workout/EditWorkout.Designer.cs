@@ -163,6 +163,7 @@ namespace CSC_455_Project
 			Margin = new Padding(4, 5, 4, 5);
 			Name = "EditWorkout";
 			Text = "Form1";
+			Load += EditWorkout_Load;
 			ResumeLayout(false);
 			PerformLayout();
 		}
