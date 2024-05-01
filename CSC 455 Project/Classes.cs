@@ -117,5 +117,19 @@ namespace CSC_455_Project
             this.name = name;
             this.musclesHit = new HashSet<Muscles>();
         }
-    }
+
+		public class ExerciseFunctions : IExerciseFunctions {
+			public Exercise SearchForExercise (List<Exercise> exercises, string name) {
+				return exercises.FirstOrDefault(e => e.name == name);
+			}
+
+			public void RemoveExercise (List<Exercise> exercises, string name) {
+				var exerciseToRemove = exercises.FirstOrDefault(e => e.name == name);
+				if (exerciseToRemove != null) {
+					exercises.Remove(exerciseToRemove);
+				}
+			}
+		}
+
+	}
 }
