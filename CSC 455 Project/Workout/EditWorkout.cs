@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static CSC_455_Project.Exercise;
 
 namespace CSC_455_Project {
 	public interface IExerciseFunctions {
@@ -17,11 +18,15 @@ namespace CSC_455_Project {
 	}
 
 	public partial class EditWorkout : Form {
-		private readonly IExerciseFunctions _exerciseFunctions;
+		public readonly IExerciseFunctions _exerciseFunctions;
+		IExerciseFunctions exerciseFunctions = new ExerciseFunctions(); // Assuming ExerciseFunctions implements IExerciseFunctions
 
-		public EditWorkout (IExerciseFunctions exerciseFunctions) {
-			_exerciseFunctions = exerciseFunctions;
+		public EditWorkout (Workout workout, IExerciseFunctions exerciseFunctions) {
+			InitializeComponent();
+			this.workout = workout;  // Store the Workout object.
+			_exerciseFunctions = exerciseFunctions;  // Assign the passed-in implementation of IExerciseFunctions.
 		}
+
 
 		public void button1_Click (object sender, EventArgs e) {
 			Exercise exercise = new Exercise(NameInput.Text);
@@ -33,12 +38,10 @@ namespace CSC_455_Project {
 
 		public void button2_Click (object sender, EventArgs e) {
 			if (_exerciseFunctions != null && workout != null && workout.exercises != null && listBox1 != null && listBox1.SelectedItem != null) {
-				var selectedItem = listBox1.SelectedItem.ToString();
-				if (!string.IsNullOrEmpty(selectedItem)) {
-					var selectedExercise = _exerciseFunctions.SearchForExercise(workout.exercises.ToList(), selectedItem);
-					if (selectedExercise != null) {
-						ShowNewExerciseDialog(selectedExercise);
-					}
+				var selectedItem = listBox1.SelectedItem;
+				var selectedExercise = _exerciseFunctions.SearchForExercise(workout.exercises.ToList(), selectedItem.ToString());
+				if (selectedExercise != null) {
+					ShowNewExerciseDialog(selectedExercise);
 				}
 			}
 		}

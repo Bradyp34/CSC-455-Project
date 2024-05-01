@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using static CSC_455_Project.Exercise;
 namespace CSC_455_Project {
     public partial class Main : Form
     {
@@ -55,22 +56,21 @@ namespace CSC_455_Project {
 
         }
 
-        private void editWorkout(object sender, EventArgs e)
-        {
-            // Open editworkout window
-            if (listBox1.SelectedItem != null)
-            {
-                Workout workout = Functions.SearchForWorkout(workouts, listBox1.SelectedItem.ToString());
-                if (workout != null)
-                {
-                    var box = new EditWorkout(workout);
-                    box.ShowDialog();
-                }
-            }
-            Functions.SaveWorkouts(workouts);
-        }
+		private void editWorkout (object sender, EventArgs e) {
+			// Open editworkout window
+			if (listBox1.SelectedItem != null) {
+				Workout workout = Functions.SearchForWorkout(workouts, listBox1.SelectedItem.ToString());
+				if (workout != null) {
+					IExerciseFunctions exerciseFunctions = new ExerciseFunctions();  // Create an instance of ExerciseFunctions
+					var box = new EditWorkout(workout, exerciseFunctions);  // Pass both the workout and ExerciseFunctions
+					box.ShowDialog();
+				}
+			}
+			Functions.SaveWorkouts(workouts);
+		}
 
-        private void deleteWorkout(object sender, EventArgs e)
+
+		private void deleteWorkout(object sender, EventArgs e)
         {
             var selectedItem = listBox1.SelectedItem;
             
