@@ -32,16 +32,18 @@ namespace CSC_455_Project {
 		}
 
 		public void button2_Click (object sender, EventArgs e) {
-			Exercise exercise = _exerciseFunctions.SearchForExercise(workout.exercises.ToList(), listBox1.SelectedItem.ToString());
-			if (exercise != null) {
-				ShowNewExerciseDialog(exercise);
+			if (_exerciseFunctions != null && workout != null && workout.exercises != null && listBox1 != null && listBox1.SelectedItem != null) {
+				var selectedExercise = _exerciseFunctions.SearchForExercise(workout.exercises.ToList(), listBox1.SelectedItem.ToString());
+				if (selectedExercise != null) {
+					ShowNewExerciseDialog(selectedExercise);
+				}
 			}
 		}
 
 		public void DeleteButton_Click (object sender, EventArgs e) {
 			var selectedItem = listBox1.SelectedItem;
 
-			if (selectedItem != null) {
+			if (selectedItem != null && _exerciseFunctions != null && workout != null && workout.exercises != null) {
 				_exerciseFunctions.RemoveExercise(workout.exercises.ToList(), selectedItem.ToString());
 				RefreshList();
 			}
