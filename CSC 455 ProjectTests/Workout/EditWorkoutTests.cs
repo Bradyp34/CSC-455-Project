@@ -47,4 +47,3 @@ namespace CSC_455_Project_Tests {
 		}
 	}
 }
-}
