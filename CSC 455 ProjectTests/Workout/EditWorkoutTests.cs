@@ -12,13 +12,17 @@ namespace CSC_455_Project_Tests {
 	[TestFixture]
 	public class EditWorkoutTests {
 		private Mock<IExerciseFunctions> _mockExerciseFunctions;
-		private EditWorkout _editWorkout;
+        private EditWorkout _editWorkout;
+        private Workout _mockWorkout;
 
-		[SetUp]
-		public void SetUp () {
-			_mockExerciseFunctions = new Mock<IExerciseFunctions>();
-			_editWorkout = new EditWorkout(_mockExerciseFunctions.Object);
-		}
+        [SetUp]
+        public void SetUp () {
+            _mockExerciseFunctions = new Mock<IExerciseFunctions>();
+            _mockWorkout = new Workout("Sample Workout");  // Assuming Workout has a constructor that takes a name.
+
+            // Correctly instantiate EditWorkout with both the Workout and IExerciseFunctions.
+            _editWorkout = new EditWorkout(_mockWorkout, _mockExerciseFunctions.Object);
+        }
 
 		[Test]
 		public void TestButton2Click_ExerciseFound_ShowsNewExerciseDialog () {
