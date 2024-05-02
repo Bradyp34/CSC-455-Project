@@ -14,14 +14,19 @@ namespace CSC_455_Project {
 			return workouts.FirstOrDefault(i => i.name == name);
 		}
 
-		public static Exercise SearchForExercise (HashSet<Exercise> exercises, string name) {
-			return exercises.FirstOrDefault(i => i.name == name);
-		}
-
 		public static void SaveWorkouts (HashSet<Workout> workouts) {
 			string jsonString = JsonSerializer.Serialize(workouts);
 			string fileName = "Workouts.json";
 			File.WriteAllText(fileName, jsonString);
+		}
+
+		public static Exercise SearchForExercise (HashSet<Exercise> exercises, string name) {
+			return exercises.FirstOrDefault(e => e.name == name);
+		}
+
+		public static void RemoveExercise (HashSet<Exercise> exercises, string name) {
+			var exerciseToRemove = exercises.FirstOrDefault(e => e.name == name);
+			exercises.Remove(exerciseToRemove);
 		}
 
 		public static HashSet<Workout> LoadWorkouts () {
@@ -67,10 +72,6 @@ namespace CSC_455_Project {
 				workday = new WorkoutDay(DateOnly.Parse(date));
 			}
 			return workday;
-		}
-
-		public static void RemoveExercise (HashSet<Exercise> exercises, string name) {
-			exercises.Remove(exercises.FirstOrDefault(x => x.name == name));
 		}
 	}
 }

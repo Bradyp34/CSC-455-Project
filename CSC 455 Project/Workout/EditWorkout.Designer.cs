@@ -18,11 +18,7 @@ namespace CSC_455_Project
             this.workoutName = workout.name;
             workoutLabel.Text = workoutName;
 
-            // Put Excersises in list
-            foreach(var item in workout.exercises)
-            {
-                listBox1.Items.Add(item.name);
-            }
+			PopulateExercisesList();
         }
 
 
