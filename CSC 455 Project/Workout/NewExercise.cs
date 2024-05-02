@@ -16,7 +16,6 @@ namespace CSC_455_Project
 		}
 
 		public void CreateExercise (object sender, EventArgs e) {
-
 			var sets = Convert.ToInt32(SetCount.Value);
 			var reps = Convert.ToInt32(RepCount.Value);
 			if (sets >= 1 && reps >= 1) {

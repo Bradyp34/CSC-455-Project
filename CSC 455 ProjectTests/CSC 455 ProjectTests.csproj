@@ -20,4 +20,9 @@
     <ProjectReference Include="..\CSC 455 Project\CSC 455 Project.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WorkoutDate\" />
+    <Folder Include="Workout\" />
+  </ItemGroup>
+
 </Project>
