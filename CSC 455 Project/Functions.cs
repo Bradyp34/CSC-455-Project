@@ -9,6 +9,20 @@ using static CSC_455_Project.EditWorkout;
 
 namespace CSC_455_Project {
 	public static class Functions {
+		public static void PopulateWorkoutList (ListBox listBox, HashSet<Workout> workouts) {
+			listBox.Items.Clear();
+			foreach (var workout in workouts) {
+				listBox.Items.Add(workout.name);
+			}
+		}
+
+		public static void SelectWorkoutAndAddExercises (string selectedItem, HashSet<Workout> workouts, HashSet<Exercise> exerciseList) {
+			var workout = SearchForWorkout(workouts, selectedItem);
+			if (workout != null) {
+				exerciseList.UnionWith(workout.exercises);
+			}
+		}
+
 		public static void RefreshExerciseList (ListBox listBox, HashSet<Exercise> exercises) {
 			listBox.Items.Clear();
 			foreach (var item in exercises) {

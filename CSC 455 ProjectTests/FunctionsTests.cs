@@ -660,5 +660,42 @@ namespace CSC_455_Project.Tests {
 			Assert.IsTrue(existingExercises.Any(e => e.name == "Exercise 2"));
 			Assert.IsTrue(existingExercises.Any(e => e.name == "Exercise 3"));
 		}
+
+		[TestMethod]
+		public void PopulateWorkoutListTest () {
+			// Arrange
+			var listBox = new ListBox();
+			var workouts = new HashSet<Workout>
+			{
+		new Workout("Workout 1"),
+		new Workout("Workout 2")
+	};
+
+			// Act
+			Functions.PopulateWorkoutList(listBox, workouts);
+
+			// Assert
+			Assert.AreEqual(2, listBox.Items.Count);
+			Assert.IsTrue(listBox.Items.Contains("Workout 1"));
+			Assert.IsTrue(listBox.Items.Contains("Workout 2"));
+		}
+
+		[TestMethod]
+		public void SelectWorkoutAndAddExercisesTest () {
+			// Arrange
+			var workouts = new HashSet<Workout>
+			{
+		new Workout("Workout 1") { exercises = new HashSet<Exercise> { new Exercise("Push-ups") } },
+		new Workout("Workout 2")
+	};
+			var exerciseList = new HashSet<Exercise>();
+
+			// Act
+			Functions.SelectWorkoutAndAddExercises("Workout 1", workouts, exerciseList);
+
+			// Assert
+			Assert.AreEqual(1, exerciseList.Count);
+			Assert.IsTrue(exerciseList.Any(ex => ex.name == "Push-ups"));
+		}
 	}
 }
