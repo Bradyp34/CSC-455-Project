@@ -562,5 +562,103 @@ namespace CSC_455_Project.Tests {
 			Assert.IsTrue(workoutDay.exercises.Contains(exercise));
 			Assert.AreEqual(1, workoutDay.exercises.Count);
 		}
+
+		[TestMethod]
+		public void RefreshExerciseListTest () {
+			// Arrange
+			var listBox = new ListBox();
+			var exercises = new HashSet<Exercise> {
+		new Exercise("Exercise 1"),
+		new Exercise("Exercise 2")
+	};
+
+			// Act
+			Functions.RefreshExerciseList(listBox, exercises);
+
+			// Assert
+			Assert.AreEqual(2, listBox.Items.Count);
+			Assert.AreEqual("Exercise 1", listBox.Items[0]);
+			Assert.AreEqual("Exercise 2", listBox.Items[1]);
+		}
+
+		[TestMethod]
+		public void EditExerciseTest () {
+			// Arrange
+			var exercises = new HashSet<Exercise> {
+		new Exercise("Exercise 1"),
+		new Exercise("Exercise 2")
+	};
+			var updatedName = "Updated Exercise 1";
+			bool dialogInvoked = false;
+
+			Action<Exercise> showDialog = exercise => {
+				dialogInvoked = true;
+				exercise.name = updatedName;
+			};
+
+			// Act
+			Functions.EditExercise(exercises, "Exercise 1", showDialog);
+
+			// Assert
+			Assert.IsTrue(dialogInvoked);
+			Assert.IsTrue(exercises.Any(e => e.name == updatedName));
+		}
+
+		[TestMethod]
+		public void DeleteExerciseTest () {
+			// Arrange
+			var exercises = new HashSet<Exercise> {
+		new Exercise("Exercise 1"),
+		new Exercise("Exercise 2")
+	};
+
+			// Act
+			Functions.DeleteExercise(exercises, "Exercise 1");
+
+			// Assert
+			Assert.AreEqual(1, exercises.Count);
+			Assert.IsFalse(exercises.Any(e => e.name == "Exercise 1"));
+		}
+
+		[TestMethod]
+		public void AddNewExerciseTest () {
+			// Arrange
+			var exercises = new HashSet<Exercise>();
+			var newName = "New Exercise";
+			bool dialogInvoked = false;
+
+			Action<Exercise> showDialog = exercise => {
+				dialogInvoked = true;
+				exercise.name = newName;
+			};
+
+			// Act
+			Functions.AddNewExercise(exercises, showDialog);
+
+			// Assert
+			Assert.IsTrue(dialogInvoked);
+			Assert.AreEqual(1, exercises.Count);
+			Assert.IsTrue(exercises.Any(e => e.name == newName));
+		}
+
+		[TestMethod]
+		public void AddExercisesFromWorkoutTest () {
+			// Arrange
+			var existingExercises = new HashSet<Exercise> {
+		new Exercise("Exercise 1")
+	};
+			var newExercises = new HashSet<Exercise> {
+		new Exercise("Exercise 2"),
+		new Exercise("Exercise 3")
+	};
+
+			// Act
+			Functions.AddExercisesFromWorkout(existingExercises, newExercises);
+
+			// Assert
+			Assert.AreEqual(3, existingExercises.Count);
+			Assert.IsTrue(existingExercises.Any(e => e.name == "Exercise 2"));
+			Assert.IsTrue(existingExercises.Any(e => e.name == "Exercise 3"));
+		}
 	}
 }

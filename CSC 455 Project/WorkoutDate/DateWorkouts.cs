@@ -11,75 +11,40 @@ using System.Windows.Forms;
 
 namespace CSC_455_Project
 {
-    public partial class DateWorkouts : Form
-    {
-        public void RefreshList()
-        {
-            listBox1.Items.Clear();
+	public partial class DateWorkouts : Form {
+		public void RefreshList () {
+			Functions.RefreshExerciseList(listBox1, dateWorkout.exercises);
+		}
 
-            foreach (var item in dateWorkout.exercises)
-            {
-                listBox1.Items.Add(item.name);
-            }
-        }
+		public void Edit_Click (object sender, EventArgs e) {
+			Functions.EditExercise(dateWorkout.exercises, listBox1.SelectedItem?.ToString(), exercise =>
+			{
+				var box = new NewExercise(exercise);
+				box.ShowDialog();
+			});
+			RefreshList();
+		}
 
-        public void Edit_Click(object sender, EventArgs e)
-        {
+		public void Delete_Click (object sender, EventArgs e) {
+			Functions.DeleteExercise(dateWorkout.exercises, listBox1.SelectedItem?.ToString());
+			RefreshList();
+		}
 
-            if (listBox1 != null && listBox1.SelectedItem != null)
-            {
-                Exercise exercise = Functions.SearchForExercise(dateWorkout.exercises, listBox1.SelectedItem.ToString());
-                if (exercise != null)
-                {
-                    var box = new NewExercise(exercise);
-                    box.ShowDialog();
-                    if (exercise.name != "")
-                    {
-                        dateWorkout.exercises.Add(exercise);
-                        RefreshList();
-                    }
-                }
-            }
-        }
+		public void AddExercise_Click (object sender, EventArgs e) {
+			Functions.AddNewExercise(dateWorkout.exercises, exercise =>
+			{
+				var box = new NewExercise(exercise);
+				box.ShowDialog();
+			});
+			RefreshList();
+		}
 
-        public void Delete_Click(object sender, EventArgs e)
-        {
-            var selectedItem = listBox1.SelectedItem;
-
-
-            // Make sure item is selected
-            if (selectedItem != null)
-            {
-                Functions.RemoveExercise(dateWorkout.exercises, selectedItem.ToString());
-            }
-        }
-        public void AddExercise_Click(object sender, EventArgs e)
-        {
-            Exercise exercise = new Exercise("");
-
-            var box = new NewExercise(exercise);
-            box.ShowDialog();
-            if (exercise.name != "")
-            {
-                dateWorkout.exercises.Add(exercise);
-                RefreshList();
-            }
-        }
-
-        public DateWorkouts()
-        {
-
-            InitializeComponent();
-        }
-
-        public void AddWorkout_Click(object sender, EventArgs e)
-        {
-            HashSet<Exercise> exerciseList = new HashSet<Exercise>();
-            var box = new SelectWorkout(workouts,exerciseList);
-            box.ShowDialog();
-            dateWorkout.exercises.UnionWith(exerciseList);
-            RefreshList();
-
-        }
-    }
+		public void AddWorkout_Click (object sender, EventArgs e) {
+			HashSet<Exercise> exerciseList = new HashSet<Exercise>();
+			var box = new SelectWorkout(workouts, exerciseList);
+			box.ShowDialog();
+			Functions.AddExercisesFromWorkout(dateWorkout.exercises, exerciseList);
+			RefreshList();
+		}
+	}
 }

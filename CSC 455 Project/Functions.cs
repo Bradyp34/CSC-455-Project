@@ -9,6 +9,43 @@ using static CSC_455_Project.EditWorkout;
 
 namespace CSC_455_Project {
 	public static class Functions {
+		public static void RefreshExerciseList (ListBox listBox, HashSet<Exercise> exercises) {
+			listBox.Items.Clear();
+			foreach (var item in exercises) {
+				listBox.Items.Add(item.name);
+			}
+		}
+
+		public static void EditExercise (HashSet<Exercise> exercises, string selectedItem, Action<Exercise> showDialog) {
+			if (!string.IsNullOrEmpty(selectedItem)) {
+				Exercise exercise = SearchForExercise(exercises, selectedItem);
+				if (exercise != null) {
+					showDialog(exercise);  // This can be a callback to show dialog
+					if (!string.IsNullOrEmpty(exercise.name)) {
+						exercises.Add(exercise);
+					}
+				}
+			}
+		}
+
+		public static void DeleteExercise (HashSet<Exercise> exercises, string selectedItem) {
+			if (!string.IsNullOrEmpty(selectedItem)) {
+				RemoveExercise(exercises, selectedItem);
+			}
+		}
+
+		public static void AddNewExercise (HashSet<Exercise> exercises, Action<Exercise> showDialog) {
+			Exercise exercise = new Exercise("");
+			showDialog(exercise);  // This can be a callback to show dialog
+			if (!string.IsNullOrEmpty(exercise.name)) {
+				exercises.Add(exercise);
+			}
+		}
+
+		public static void AddExercisesFromWorkout (HashSet<Exercise> exercises, HashSet<Exercise> selectedExercises) {
+			exercises.UnionWith(selectedExercises);
+		}
+
 		public static void CreateExercise (
 			NumericUpDown setCount,
 			NumericUpDown repCount,
@@ -203,6 +240,10 @@ namespace CSC_455_Project {
 				workday = new WorkoutDay(DateOnly.Parse(date));
 			}
 			return workday;
+		}
+
+		internal static void RefreshExerciseList (object listBox1, object exercises) {
+			throw new NotImplementedException();
 		}
 	}
 }
