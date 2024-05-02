@@ -9,6 +9,50 @@ using static CSC_455_Project.EditWorkout;
 
 namespace CSC_455_Project {
 	public static class Functions {
+		public static HashSet<Workout> InitializeWorkouts () {
+			return LoadWorkouts();
+		}
+
+		public static HashSet<WorkoutDay> InitializeWorkoutDays () {
+			return LoadWorkoutDates();
+		}
+
+		public static void AddWorkout (HashSet<Workout> workouts, string workoutName, Action<string> updateUI) {
+			if (!string.IsNullOrWhiteSpace(workoutName)) {
+				var workout = new Workout(workoutName);
+				bool added = workouts.Add(workout);
+				if (added) {
+					updateUI(workoutName);
+					SaveWorkouts(workouts);
+				}
+			}
+		}
+
+		public static void EditSelectedWorkout (HashSet<Workout> workouts, string selectedItem, Action<Workout> showDialog) {
+			if (!string.IsNullOrEmpty(selectedItem)) {
+				Workout workout = SearchForWorkout(workouts, selectedItem);
+				if (workout != null) {
+					showDialog(workout);
+				}
+			}
+		}
+
+		public static void DeleteSelectedWorkout (HashSet<Workout> workouts, string selectedItem, Action<string> removeFromUI) {
+			if (!string.IsNullOrEmpty(selectedItem)) {
+				workouts.RemoveWhere(x => x.name == selectedItem);
+				removeFromUI(selectedItem);
+				SaveWorkouts(workouts);
+			}
+		}
+
+		public static void ManageWorkoutDay (HashSet<WorkoutDay> workoutDays, DateTime date, HashSet<Workout> workouts, Action<WorkoutDay, HashSet<Workout>> showDialog) {
+			var workday = CheckForWorkoutDay(workoutDays, date.ToShortDateString());
+			showDialog(workday, workouts);
+			if (workday.exercises.Count > 0) {
+				workoutDays.Add(workday);
+				SaveWorkoutDates(workoutDays);
+			}
+		}
 		public static void PopulateWorkoutList (ListBox listBox, HashSet<Workout> workouts) {
 			listBox.Items.Clear();
 			foreach (var workout in workouts) {

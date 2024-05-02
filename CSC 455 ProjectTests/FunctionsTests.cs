@@ -697,5 +697,20 @@ namespace CSC_455_Project.Tests {
 			Assert.AreEqual(1, exerciseList.Count);
 			Assert.IsTrue(exerciseList.Any(ex => ex.name == "Push-ups"));
 		}
+
+		[TestMethod]
+		public void AddWorkoutTest () {
+			// Arrange
+			var workouts = new HashSet<Workout>();
+			string workoutName = "New Workout";
+			bool uiUpdated = false;
+
+			// Act
+			Functions.AddWorkout(workouts, workoutName, name => uiUpdated = true);
+
+			// Assert
+			Assert.IsTrue(workouts.Any(w => w.name == workoutName));
+			Assert.IsTrue(uiUpdated);
+		}
 	}
 }

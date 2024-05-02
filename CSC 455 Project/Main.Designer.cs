@@ -135,7 +135,6 @@
             Margin = new Padding(2);
             Name = "Main";
             Text = "Form1";
-            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
