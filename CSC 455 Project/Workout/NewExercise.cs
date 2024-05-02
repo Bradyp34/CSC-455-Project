@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static CSC_455_Project.Functions;
 
 namespace CSC_455_Project
 {
@@ -16,24 +17,7 @@ namespace CSC_455_Project
 		}
 
 		public void CreateExercise (object sender, EventArgs e) {
-			var sets = Convert.ToInt32(SetCount.Value);
-			var reps = Convert.ToInt32(RepCount.Value);
-			if (sets >= 1 && reps >= 1) {
-				exercise.sets = sets;
-				exercise.reps = reps;
-			}
-			foreach (var item in checkedListBox1.CheckedItems) {
-				Enum.TryParse<Muscles>(item.ToString(), out Muscles muscle);
-				exercise.musclesHit.Add(muscle);
-			}
-			if (SetName.Text != "") {
-				exercise.name = SetName.Text;
-				Close();
-			}
-		}
-
-		public void NewExercise_Load (object sender, EventArgs e) {
-
+			Functions.CreateExercise(SetCount, RepCount, checkedListBox1, SetName, exercise);
 		}
 	}
 }

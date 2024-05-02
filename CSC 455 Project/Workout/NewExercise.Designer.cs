@@ -172,7 +172,6 @@
 			Margin = new Padding(4, 5, 4, 5);
 			Name = "NewExercise";
 			Text = "Form1";
-			Load += NewExercise_Load;
 			((System.ComponentModel.ISupportInitialize)SetCount).EndInit();
 			((System.ComponentModel.ISupportInitialize)RepCount).EndInit();
 			ResumeLayout(false);

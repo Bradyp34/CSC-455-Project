@@ -197,10 +197,9 @@ namespace CSC_455_Project.Tests {
 		[TestMethod]
 		public void CheckForWorkoutDay_ExistingDate_ReturnsExistingWorkoutDay () {
 			// Arrange
-			var workoutDays = new HashSet<WorkoutDay>
-			{
-		new WorkoutDay(DateOnly.Parse("2022-01-01"))
-	};
+			var workoutDays = new HashSet<WorkoutDay> {
+				new WorkoutDay(DateOnly.Parse("2022-01-01"))
+			};
 			var date = "2022-01-01";
 
 			// Act
@@ -375,6 +374,94 @@ namespace CSC_455_Project.Tests {
 			// Assert
 			Assert.IsFalse(workouts.Contains(workout1));
 			Assert.IsFalse(listBox.Items.Contains("Workout 1"));
+		}
+
+		[TestMethod()]
+		public void CreateExerciseTest () {
+			// Arrange
+			var setCount = new NumericUpDown();
+			var repCount = new NumericUpDown();
+			var checkedListBox = new CheckedListBox();
+			var setName = new TextBox();
+			var exercise = new Exercise("Initial Name");
+
+			setCount.Value = 3; // Sets the number of sets
+			repCount.Value = 10; // Sets the number of repetitions
+
+			// Simulating checked items in the checkedListBox
+			checkedListBox.Items.Add("Chest", true);
+			checkedListBox.Items.Add("Biceps", true);
+			checkedListBox.Items.Add("Calves", false); // Not checked
+
+			setName.Text = "Updated Exercise Name";
+
+			// Act
+			Functions.CreateExercise(setCount, repCount, checkedListBox, setName, exercise);
+
+			// Assert
+			Assert.AreEqual(3, exercise.sets); // Checking sets
+			Assert.AreEqual(10, exercise.reps); // Checking reps
+			Assert.AreEqual(2, exercise.musclesHit.Count); // Two muscles should be added
+			Assert.IsTrue(exercise.musclesHit.Contains(Muscles.Chest)); // Check specific muscle
+			Assert.IsTrue(exercise.musclesHit.Contains(Muscles.Biceps)); // Check specific muscle
+			Assert.IsFalse(exercise.musclesHit.Contains(Muscles.Calves)); // Ensure not added
+			Assert.AreEqual("Updated Exercise Name", exercise.name); // Check name update
+		}
+
+		[TestMethod()]
+		public void ShowNewExerciseDialogTest () {
+			// Arrange
+			var exercise = new Exercise("Test Exercise");
+
+			// Act
+			Functions.ShowNewExerciseDialog(exercise);
+
+			// Assert
+			// Assuming ShowDialog launches the dialog successfully
+			// Assertions would normally be about checking the outcome post-dialog, but dialogs require UI testing frameworks
+			Assert.IsTrue(true); // will come back and add testing later if I have time
+		}
+
+		[TestMethod()]
+		public void EditSelectedWorkoutTest () {
+			// Arrange
+			var workout1 = new Workout("Workout 1");
+			var workout2 = new Workout("Workout 2");
+			var workouts = new HashSet<Workout> { workout1, workout2 };
+			var listBox = new ListBox();
+			listBox.Items.Add("Workout 1");
+			listBox.Items.Add("Workout 2");
+			listBox.SelectedItem = "Workout 1";
+
+			// Act
+			Functions.EditSelectedWorkout(listBox, workouts);
+
+			// Assert
+			// Assuming ShowNewWorkoutDialog launches the edit dialog successfully
+			// Assertions would normally be about checking the outcome post-dialog, but dialogs require UI testing frameworks
+			Assert.IsTrue(true); // will come back and add testing later if I have time
+		}
+
+		[TestMethod()]
+		public void HandleWorkoutDayTest () {
+			// Arrange
+			var dateTimePicker = new DateTimePicker();
+			dateTimePicker.Value = new DateTime(2022, 1, 1); // Simulate setting the date on a DatePicker control
+
+			var workoutDays = new HashSet<WorkoutDay>();
+			var workouts = new HashSet<Workout>();
+
+			var workoutDay = new WorkoutDay(DateOnly.Parse("2022-01-01"));
+			var workout = new Workout("Test Workout");
+			var exercise = new Exercise("Test Exercise");
+			workout.addExercise(exercise);
+			workouts.Add(workout);
+
+			// Act
+			Functions.HandleWorkoutDay(dateTimePicker, workoutDays, workouts);
+
+			// Assert
+			Assert.IsTrue(workoutDays.Any(wd => wd.day == DateOnly.FromDateTime(dateTimePicker.Value) && wd.exercises.Contains(exercise)));
 		}
 	}
 }

@@ -33,5 +33,9 @@ namespace CSC_455_Project {
 			Functions.RemoveExerciseFromWorkout(workout, listBox1);
 			PopulateExercisesList();
 		}
+
+		private void EditWorkout_Load (object sender, EventArgs e) {
+			PopulateExercisesList();
+		}
 	}
 }

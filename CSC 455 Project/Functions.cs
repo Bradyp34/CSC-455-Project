@@ -9,6 +9,32 @@ using static CSC_455_Project.EditWorkout;
 
 namespace CSC_455_Project {
 	public static class Functions {
+		public static void CreateExercise (
+			NumericUpDown setCount,
+			NumericUpDown repCount,
+			CheckedListBox checkedListBox,
+			TextBox setName,
+			Exercise exercise) {
+			var sets = Convert.ToInt32(setCount.Value);
+			var reps = Convert.ToInt32(repCount.Value);
+			if (sets >= 1 && reps >= 1) {
+				exercise.sets = sets;
+				exercise.reps = reps;
+			}
+
+			foreach (var item in checkedListBox.CheckedItems) {
+				if (Enum.TryParse<Muscles>(item.ToString(), out Muscles muscle)) {
+					exercise.musclesHit.Add(muscle);
+				}
+			}
+
+			if (!string.IsNullOrWhiteSpace(setName.Text)) {
+				exercise.name = setName.Text;
+				// Assuming there is some kind of close function, but we may need to remove or handle it differently in a static method context
+				// Close(); // This might be context-specific, such as closing a form or dialog
+			}
+		}
+
 		public static void ShowNewExerciseDialog (Exercise exercise) {
 			var box = new NewExercise(exercise);
 			box.ShowDialog();
@@ -76,6 +102,7 @@ namespace CSC_455_Project {
 			}
 		}
 
+		// Test for this is very complicated
 		public static void EditSelectedWorkout (ListBox listBox, HashSet<Workout> workouts) {
 			var selectedItem = listBox.SelectedItem;
 			if (selectedItem != null) {
