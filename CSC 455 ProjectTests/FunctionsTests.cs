@@ -463,5 +463,104 @@ namespace CSC_455_Project.Tests {
 			// Assert
 			Assert.IsTrue(workoutDays.Any(wd => wd.day == DateOnly.FromDateTime(dateTimePicker.Value) && wd.exercises.Contains(exercise)));
 		}
+
+		[TestMethod]
+		public void WorkoutDayEqualityTest () {
+			// Arrange
+			var date = DateOnly.Parse("2023-04-25");
+			var workoutDay1 = new WorkoutDay(date);
+			var workoutDay2 = new WorkoutDay(date);
+
+			// Act & Assert
+			Assert.AreEqual(workoutDay1, workoutDay2);
+		}
+
+		[TestMethod]
+		public void WorkoutDayInequalityTest () {
+			// Arrange
+			var workoutDay1 = new WorkoutDay(DateOnly.Parse("2023-04-25"));
+			var workoutDay2 = new WorkoutDay(DateOnly.Parse("2023-04-26"));
+
+			// Act & Assert
+			Assert.AreNotEqual(workoutDay1, workoutDay2);
+		}
+
+		[TestMethod]
+		public void WorkoutEqualityTest () {
+			// Arrange
+			var workout1 = new Workout("Morning Routine");
+			var workout2 = new Workout("Morning Routine");
+
+			// Act & Assert
+			Assert.AreEqual(workout1, workout2);
+		}
+
+		[TestMethod]
+		public void WorkoutInequalityTest () {
+			// Arrange
+			var workout1 = new Workout("Morning Routine");
+			var workout2 = new Workout("Evening Routine");
+
+			// Act & Assert
+			Assert.AreNotEqual(workout1, workout2);
+		}
+
+		[TestMethod]
+		public void AddExerciseToWorkoutIncreasesCountTest () {
+			// Arrange
+			var workout = new Workout("Test Workout");
+			var exercise = new Exercise("Push-up");
+
+			// Act
+			workout.addExercise(exercise);
+
+			// Assert
+			Assert.IsTrue(workout.exercises.Contains(exercise));
+			Assert.AreEqual(1, workout.exercises.Count);
+		}
+
+		[TestMethod]
+		public void RemoveExerciseFromWorkoutDecreasesCountTest () {
+			// Arrange
+			var workout = new Workout("Test Workout");
+			var exercise = new Exercise("Push-up");
+			workout.addExercise(exercise);
+
+			// Act
+			workout.removeExercise(exercise);
+
+			// Assert
+			Assert.IsFalse(workout.exercises.Contains(exercise));
+			Assert.AreEqual(0, workout.exercises.Count);
+		}
+
+		[TestMethod]
+		public void ExerciseInitializationTest () {
+			// Arrange
+			var exercise = new Exercise("Squat");
+			exercise.sets = 3;
+			exercise.reps = 12;
+			exercise.musclesHit.Add(Muscles.Quads);
+
+			// Assert
+			Assert.AreEqual("Squat", exercise.name);
+			Assert.AreEqual(3, exercise.sets);
+			Assert.AreEqual(12, exercise.reps);
+			Assert.IsTrue(exercise.musclesHit.Contains(Muscles.Quads));
+		}
+
+		[TestMethod]
+		public void AddExerciseToWorkoutDayTest () {
+			// Arrange
+			var workoutDay = new WorkoutDay(DateOnly.Parse("2023-04-25"));
+			var exercise = new Exercise("Jogging");
+
+			// Act
+			workoutDay.exercises.Add(exercise);
+
+			// Assert
+			Assert.IsTrue(workoutDay.exercises.Contains(exercise));
+			Assert.AreEqual(1, workoutDay.exercises.Count);
+		}
 	}
 }
