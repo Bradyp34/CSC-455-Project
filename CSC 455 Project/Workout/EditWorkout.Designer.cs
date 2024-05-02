@@ -166,12 +166,12 @@ namespace CSC_455_Project
 		#endregion
 
 		private Label workoutLabel;
-        private ListBox listBox1;
         private Label label1;
         private Button button1;
         private Button button2;
         private Button DeleteButton;
         private Label label2;
         private TextBox NameInput;
-    }
+		public ListBox listBox1;
+	}
 }
